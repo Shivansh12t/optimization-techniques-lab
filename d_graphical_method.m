@@ -70,14 +70,13 @@ s1 = find(const1 > 0);
 s2 = find(const2 > 0);
 % s3 = find(const3 > 0);
 s = unique([s1 s2]);
+s = s(s < size(points, 1));
 
-if ~isempty(s)
-    % points(s, :) = [];
-end
+points(s, :) = [];
 
 % Phase 7 - Objective Value and Points
 value = points * c';
-table = [points, value];
+table = [points, value]
 
 % Phase 8 - Objective Value
-optimal_value = max(table)
+optimal_value = max(value)
