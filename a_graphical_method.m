@@ -38,5 +38,43 @@ line3 = [y1(:, [c3 cx1]); x23(:,[c3 cx1])]';
 
 corner_pts = unique([line1; line2; line3], 'rows');
 
-% Phase 4 - Intersection Points
+% Phase 4 - Intersection Points of each line
+
+pts = [0,0]; % Initialize the intersection points array
+
+for i = 1:size(A,1)
+    for j = i+1:size(A,1)
+        A1 = A([i, j], :);  % Select rows i and j from A
+        B1 = b([i, j]);     % Select corresponding elements from b
+        x = A1 \ B1;        % Solve the linear system using matrix division instead of inv()
+        pts = [pts; x'];    % Store the result as a new row
+    end
+end
+
+intr = pts;  % Store the final points
+
+% Phase 5 - Write all Corner Points
+all_pts = [intr; corner_pts];
+points = unique(all_pts,"rows");
+
+% Phase 6 - Find Feasible Region
+for i = 1:size(points, 1)
+    const1(i) = A(1,1) * points(i,1) + A(1,2) * points(i,2) - b(1);
+    const2(i) = A(2,1) * points(i,1) + A(2,2) * points(i,2) - b(2);
+    const3(i) = A(3,1) * points(i,1) + A(3,2) * points(i,2) - b(3);
+end
+
+s1 = find(const1 > 0);
+s2 = find(const2 > 0);
+s3 = find(const3 > 0);
+s = unique([s1 s2 s3]);
+
+points(s, :) = [];
+
+% Phase 7 - Objective Value and Points
+value = points * c';
+table = [points, value]
+
+
+
 
