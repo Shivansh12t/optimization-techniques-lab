@@ -76,4 +76,4 @@ value = points * c';
 table = [points, value];
 
 % Phase 8 - Objective Value
-optimal_value = max(table);
+optimal_value = max(table)
