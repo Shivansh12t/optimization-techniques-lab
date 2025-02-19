@@ -73,7 +73,8 @@ points(s, :) = [];
 
 % Phase 7 - Objective Value and Points
 value = points * c';
+[zmax,zind]=max(value)
 table = [points, value];
 
 % Phase 8 - Objective Value
-optimal_value = max(table)
+optimal_value = table(zind, :)
