@@ -47,3 +47,7 @@ end
 fprintf("Entering Variable: x_%d\n", pvt_col);
 fprintf("Leaving Variable: x_%d\n", Bv(pvt_row));
 fprintf("Pivot Element: %f\n", A(pvt_row, pvt_col));
+
+Bv(pvt_row) = pvt_col;
+disp('New Basic Variable (Bv) =');
+disp(Bv);
